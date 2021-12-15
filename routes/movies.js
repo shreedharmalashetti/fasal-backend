@@ -45,8 +45,13 @@ router.get("/add", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", (req, res) => {
-  Movie.findByIdAndDelete({ imdbid: req.params.id, userId: req.user.id });
+router.delete("/:id", async (req, res) => {
+  const movie = await Movie.findOne({
+    imdbid: req.params.id,
+    userId: req.user.id,
+  });
+  movie.delete();
+  res.json({message:'done'})
 });
 
 router.get("/", async (req, res, next) => {
