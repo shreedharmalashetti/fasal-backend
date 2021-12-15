@@ -44,6 +44,11 @@ router.get("/add", async (req, res, next) => {
     res.status(400).json(error);
   }
 });
+
+router.delete("/:id", (req, res) => {
+  Movie.findByIdAndDelete({ imdbid: req.params.id, userId: req.user.id });
+});
+
 router.get("/", async (req, res, next) => {
   try {
     const movies = await Movie.find({ userId: req.user.id });
