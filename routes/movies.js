@@ -56,10 +56,18 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    const movies1 = await Movie.find({ userId: req.user.id,accessType:"private" });
+    const movies1 = await Movie.find({
+      userId: req.user.id,
+      accessType: "public",
+    });
     const movies2 = await Movie.find({ accessType: "public" });
 
-    res.send([...movies1, ...movies2]);
+    for (let m of movies2) {
+      if (movies1.findIndex((m1) => m1.imdbid == m.imdbid) < 0) {
+        movies1.push(m);
+      }
+    }
+    res.send([...movies1]);
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
