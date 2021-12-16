@@ -51,13 +51,15 @@ router.delete("/:id", async (req, res) => {
     userId: req.user.id,
   });
   movie.delete();
-  res.json({message:'done'})
+  res.json({ message: "done" });
 });
 
 router.get("/", async (req, res, next) => {
   try {
-    const movies = await Movie.find({ userId: req.user.id });
-    res.send(movies);
+    const movies1 = await Movie.find({ userId: req.user.id });
+    const movies2 = await Movie.find({ accessType: "public" });
+
+    res.send([...movies1, ...movies2]);
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
