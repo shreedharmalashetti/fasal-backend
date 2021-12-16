@@ -58,7 +58,7 @@ router.get("/", async (req, res, next) => {
   try {
     const movies1 = await Movie.find({
       userId: req.user.id,
-      accessType: "public",
+      accessType: "private",
     });
     const movies2 = await Movie.find({ accessType: "public" });
 
