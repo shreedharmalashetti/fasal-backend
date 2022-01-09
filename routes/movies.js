@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
     m.userId = req.user.id;
     m.id = getNewId();
     await m.save();
-    res.json({ message: "movie added successfully", id: m.id });
+    res.json({ message: "movie added successfully", id: m.id,userId:m.userId });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
