@@ -10,20 +10,15 @@ const userSchema = new Schema({
 }); // schema
 
 const movieSchema = new Schema({
+  id: String,
+  userId: String,
   accessType: String,
-  actors: String,
-  country: String,
-  director: String,
-  genres: String,
-  imdbid: String,
-  languages: String,
-  plot: String,
-  poster: String,
-  rating: Number,
-  runtime: String,
+
   title: String,
   year: Number,
-  userId: String,
+  languages: String,
+  poster: String,
+  video:String,
 });
 
 const User = db.model("user", userSchema); //model
